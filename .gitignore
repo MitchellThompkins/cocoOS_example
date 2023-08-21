@@ -1,0 +1,13 @@
+*.swp
+*.swo
+*.cmake
+*.i
+*.elf
+*.txt
+*.json
+*.S
+*.s
+
+CMakeFiles
+_deps
+build/
