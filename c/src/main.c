@@ -24,9 +24,10 @@ static void unlock_tick()
     pthread_mutex_unlock(&tick_mutex);
 }
 
-static void *tick(void *interval_ms)
+//static void *tick(void *interval_ms)
+static void *tick(void)
 {
-    int interval_us = (*(int *)interval_ms)*1000;
+    static const uint16_t interval_us = 100*1000; // 0.1 seconds
     static volatile uint64_t global_time = 0;
 
     pthread_mutex_lock(&timer_mutex);
@@ -56,31 +57,6 @@ void enable_timer(void)
     pthread_mutex_unlock(&timer_mutex);
 }
 
-
-//static void foo_task(void)
-//{
-//    uint16_t os_task_state = task_internal_state_get(running_tid);
-//
-//    printf("os_task_state: %d\n ", os_task_state);
-//
-//    switch ( os_task_state )
-//    {
-//        case 0:;
-//               for(;;)
-//               {
-//                   printf("foo global_time: %d\n", global_time);
-//                   do {
-//                       os_task_wait_time_set( running_tid, 0, 15 );
-//                       os_task_internal_state_set(running_tid, 44 +0);
-//                       running_tid = 255;
-//                       return;
-//                       case (45 +0):;
-//                   } while ( 0 );
-//               }
-//
-//               os_task_kill(running_tid); running_tid = 255; return;};
-//}
-
 static void foo_task(void)
 {
     task_open();
@@ -100,7 +76,7 @@ static void bar_task(void)
 
     for(;;)
     {
-        printf("bar\n");
+        uint16_t test = task_internal_state_get(running_tid);
         task_wait( 20 );
     }
 
@@ -112,8 +88,7 @@ int main(void)
 {
     printf("hello world\n");
 
-    static const uint16_t interval_ms = 100;
-    int status = pthread_create(&thread, NULL, tick, &interval_ms);
+    int status = pthread_create(&thread, NULL, tick, NULL);
     enable_timer();
 
     os_init();
