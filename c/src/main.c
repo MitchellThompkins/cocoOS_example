@@ -76,7 +76,7 @@ static void bar_task(void)
 
     for(;;)
     {
-        uint16_t test = task_internal_state_get(running_tid);
+        printf("bar\n");
         task_wait( 20 );
     }
 
