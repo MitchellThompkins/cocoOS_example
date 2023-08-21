@@ -59,28 +59,41 @@ void enable_timer(void)
 
 static void foo_task(void)
 {
-    task_open();
+    task_open_macro();
 
     for(;;)
     {
         printf("foo\n");
-        task_wait( 10 );
+        task_wait_macro( 10 );
+        printf("after foo\n");
     }
 
-    task_close();
+    task_close_macro();
 }
 
 static void bar_task(void)
 {
-    task_open();
+    task_open_macro();
 
     for(;;)
     {
         printf("bar\n");
-        task_wait( 20 );
+        task_wait_macro( 20 );
+        printf("after bar\n");
     }
 
-    task_close();
+    task_close_macro();
+}
+
+static void foobar_task(void)
+{
+    task_open_macro();
+
+    printf("foobar\n");
+    //task_wait_macro( 5 );
+    printf("after foobar\n");
+
+    task_close_macro();
 }
 
 
@@ -95,6 +108,7 @@ int main(void)
 
     const uint8_t f = task_create( foo_task, NULL, 2, NULL, 0, 0 );
     const uint8_t b = task_create( bar_task, NULL, 1, NULL, 0, 0 );
+    const uint8_t fb = task_create( foobar_task, NULL, 3, NULL, 0, 0 );
 
     os_start_locking(&lock_tick, &unlock_tick);
 
