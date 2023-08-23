@@ -27,7 +27,7 @@ static void unlock_tick()
 //static void *tick(void *interval_ms)
 static void *tick(void)
 {
-    static const uint16_t interval_us = 100*1000; // 0.1 seconds
+    static const uint32_t interval_us = 100*1000; // 0.1 seconds
     static volatile uint64_t global_time = 0;
 
     pthread_mutex_lock(&timer_mutex);
@@ -59,41 +59,46 @@ void enable_timer(void)
 
 static void foo_task(void)
 {
-    task_open_macro();
+    task_open();
 
     for(;;)
     {
         printf("foo\n");
-        task_wait_macro( 10 );
+        task_wait( 10 );
         printf("after foo\n");
     }
 
-    task_close_macro();
+    task_close();
 }
 
 static void bar_task(void)
 {
-    task_open_macro();
+    // if for is specified below, we should start here
+    task_open();
 
     for(;;)
     {
+        // we should reenter here
         printf("bar\n");
-        task_wait_macro( 20 );
+        task_wait( 20 );
+
+        // Need to "resume" operation here
         printf("after bar\n");
     }
 
-    task_close_macro();
+    // if for is specified above, we should never call this
+    task_close();
 }
 
 static void foobar_task(void)
 {
-    task_open_macro();
+    task_open();
 
     printf("foobar\n");
-    //task_wait_macro( 5 );
+    task_wait( 5 );
     printf("after foobar\n");
 
-    task_close_macro();
+    task_close();
 }
 
 
