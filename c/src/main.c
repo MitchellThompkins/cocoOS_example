@@ -106,7 +106,7 @@ int main(void)
 {
     printf("hello world\n");
 
-    int status = pthread_create(&thread, NULL, tick, NULL);
+    int status = pthread_create(&thread, NULL, (void*)tick, NULL);
     enable_timer();
 
     os_init();

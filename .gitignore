@@ -10,6 +10,7 @@
 
 CMakeFiles
 _deps
-build/
+cmake_build/
+makefile_build/
 tags
 .gdb*
