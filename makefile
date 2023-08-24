@@ -1,7 +1,6 @@
 CC = gcc
 TARGET = cocoOS_example_c
 
-
 .PHONY: cmake_build
 cmake_build:
 	mkdir -p cmake_build \
