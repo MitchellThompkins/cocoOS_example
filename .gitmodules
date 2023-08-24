@@ -1,0 +1,3 @@
+[submodule "cocoOS"]
+	path = cocoOS
+	url = https://github.com/MitchellThompkins/cocoOS.git

@@ -1,13 +1,22 @@
-.PHONY: build
-build:
-	mkdir -p build \
-	&& cd build/ \
+CC = gcc
+TARGET = cocoOS_example_c
+
+
+.PHONY: cmake_build
+cmake_build:
+	mkdir -p cmake_build \
+	&& cd cmake_build/ \
 	&& cmake .. \
 	&& cmake --build .
 
+.PHONY: makefile_build
+makefile_build:
+	$(CC) $(CFLAGS) -o $(TARGET) src/main.c ../cocoOS/os/cocoos/src/*.c -I include/ -I ../cocoOS/os/cocoos/include/
+
 .PHONY: clean
 clean:
-	rm -rf build
+	rm -rf cmake_build
+	rm -rf makefile_build
 
 .PHONY: container.pull
 container.pull:
