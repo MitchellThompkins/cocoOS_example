@@ -1,15 +1,15 @@
 CC = gcc
 TARGET = cocoOS_example_c
 
-.PHONY: cmake_build
-cmake_build:
+.PHONY: build.cmake
+build.cmake:
 	mkdir -p cmake_build \
 	&& cd cmake_build/ \
 	&& cmake .. \
 	&& cmake --build .
 
-.PHONY: makefile_build
-makefile_build:
+.PHONY: build.makefile
+build.makefile:
 	$(CC) $(CFLAGS) -o $(TARGET) src/main.c ../cocoOS/os/cocoos/src/*.c -I include/ -I ../cocoOS/os/cocoos/include/
 
 .PHONY: clean
