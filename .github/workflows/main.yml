@@ -1,0 +1,15 @@
+name: build_and_test
+
+on: [push]
+
+jobs:
+    build_and_test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v2
+
+            - name: build
+              uses: MitchellThompkins/cocoOS_github_action@v0.0.3
+              with:
+                command: make build.cmake && build.makefile
