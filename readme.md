@@ -5,6 +5,39 @@ cocoOS cooperative scheduler. Building with CMake is supported (and indeed
 encouraged) but you can also simply include the OS directly into your project
 (shown here by using a git submodule).
 
+# Requirements
+
+The user is expected to provide 6 macros via a header file named
+`user_os_config.h` and provide it to their build. Examples are provided in this
+repo on how to do that. Below is an example header.
+
+```c
+// user_os_config.h
+#ifndef USER_OS_CONFIG_H
+#define USER_OS_CONFIG_H
+
+#define N_TASKS      3
+#define N_QUEUES     0
+#define N_SEMAPHORES 0
+#define N_EVENTS     0
+#define ROUND_ROBIN  0
+#define Mem_t        uint32_t
+
+#endif
+```
+
+If building with cmake, users should provide the include file via a library
+interface as such:
+
+```
+add_library(user_os_config INTERFACE)
+target_include_directories(user_os_config
+    INTERFACE
+        # Path to directory containing user_os_config.h
+        c/include
+)
+```
+
 # Building
 
 ## Open the container

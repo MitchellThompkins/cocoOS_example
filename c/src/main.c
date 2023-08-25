@@ -24,7 +24,6 @@ static void unlock_tick()
     pthread_mutex_unlock(&tick_mutex);
 }
 
-//static void *tick(void *interval_ms)
 static void *tick(void)
 {
     static const uint32_t interval_us = 100*1000; // 0.1 seconds
