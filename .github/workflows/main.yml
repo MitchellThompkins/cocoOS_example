@@ -1,13 +1,15 @@
-name: build_and_test
+name: build
 
 on: [push]
 
 jobs:
-    build_and_test:
+    build:
         runs-on: ubuntu-latest
         steps:
             - name: checkout
               uses: actions/checkout@v2
+              with:
+                submodules: recursive
 
             - name: build
               uses: MitchellThompkins/cocoOS_github_action@v0.0.3
