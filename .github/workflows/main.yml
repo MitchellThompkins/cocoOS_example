@@ -12,4 +12,4 @@ jobs:
             - name: build
               uses: MitchellThompkins/cocoOS_github_action@v0.0.3
               with:
-                command: make build.cmake && build.makefile
+                command: make build.cmake build.makefile
