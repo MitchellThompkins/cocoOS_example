@@ -23,7 +23,7 @@ include(FetchContent)
 FetchContent_Declare(
     cocoOS
     GIT_REPOSITORY https://github.com/MitchellThompkins/cocoOS
-    GIT_TAG        test_user_dependency
+    GIT_TAG        develop
 )
 
 FetchContent_MakeAvailable(cocoOS)
