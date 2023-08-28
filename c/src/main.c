@@ -24,9 +24,10 @@ static void unlock_tick()
     pthread_mutex_unlock(&tick_mutex);
 }
 
-static void *tick(void)
+static void *tick(void* interval_ms)
 {
-    static const uint32_t interval_us = 100*1000; // 0.1 seconds
+    const uint32_t interval_us = (*((int*)interval_ms))*1000; // 0.1 seconds
+
     static volatile uint64_t global_time = 0;
 
     pthread_mutex_lock(&timer_mutex);
@@ -105,7 +106,8 @@ int main(void)
 {
     printf("hello world\n");
 
-    int status = pthread_create(&thread, NULL, (void*)tick, NULL);
+    uint32_t interval_ms = 100;
+    int status = pthread_create(&thread, NULL, (void*)tick, &interval_ms);
     enable_timer();
 
     os_init();
